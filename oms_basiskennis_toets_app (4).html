@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full bg-neutral-950">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMS Basiskennis Toets Terminal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Chakra Petch for modern tech vibe, Inter for UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Chakra Petch', 'sans-serif'],
+                    },
+                    colors: {
+                        oms: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316', // Bright Orange accent
+                            600: '#ea580c', // Darker Orange accent
+                            950: '#0c0a09', // Deep dark stone background
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar matching the dark orange theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0a09;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #292524;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+    </style>
+</head>
+<body class="h-full text-stone-100 font-sans antialiased flex flex-col justify-between bg-neutral-950">
+
+    <!-- Brand Header / Top Navigation -->
+    <header class="border-b border-stone-800 bg-stone-900/80 backdrop-blur sticky top-0 z-50 px-4 py-3 sm:px-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-orange-500 to-orange-400 p-2.5 rounded-xl shadow-lg shadow-orange-500/20">
+                    <i class="fa-solid fa-graduation-cap text-neutral-950 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-tech text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">
+                        OMS BASISKENNIS TOETS
+                    </h1>
+                    <p class="text-xs text-stone-400 font-tech uppercase tracking-widest">OMS Opleiding & Beheer Terminal</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="toggleAdminPanel()" class="flex items-center gap-2 bg-stone-850 hover:bg-stone-800 text-stone-300 hover:text-orange-400 transition-all text-xs font-semibold px-4 py-2.5 rounded-lg border border-stone-800">
+                    <i class="fa-solid fa-user-lock"></i>
+                    Beheerder Paneel
+                </button>
+                <div class="bg-stone-900 border border-stone-800 rounded-lg px-3 py-1.5 text-xs text-stone-400 flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+                    Systeem Online
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="w-full bg-stone-900 border border-stone-800 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden transition-all duration-300">
+            <!-- Background design details -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest font-tech">
+                    Officiële Kennismeting
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-tech font-bold mt-4 mb-3 text-stone-100">
+                    OMS Basiskennis Toets
+                </h2>
+                <p class="text-stone-400 text-sm sm:text-base">
+                    Vul je naam en roepnummer in om de officiële OMS Basiskennis Toets te starten. De toets bestaat uit 22 vragen verdeeld over drie belangrijke categorieën.
+                </p>
+            </div>
+
+            <!-- Info Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-stone-950/50 border border-stone-800 p-4 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-orange-400 text-lg mt-0.5"></i>
+                    <div>
+                        <h4 class="font-semibold text-xs text-stone-300 uppercase tracking-wider font-tech">Slaaggrens</h4>
+                        <p class="text-sm text-stone-400 mt-1"><strong class="text-stone-200">Minimaal 15</strong> van de 22 punten behaald.</p>
+                    </div>
+                </div>
+                <div class="bg-stone-950/50 border border-stone-800 p-4 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-list-check text-orange-400 text-lg mt-0.5"></i>
+                    <div>
+                        <h4 class="font-semibold text-xs text-stone-300 uppercase tracking-wider font-tech">Vragenpool</h4>
+                        <p class="text-sm text-stone-400 mt-1">22 meerkeuzevragen in overzichtelijke categorieën.</p>
+                    </div>
+                </div>
+                <div class="bg-stone-950/50 border border-stone-800 p-4 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-globe text-emerald-400 text-lg mt-0.5"></i>
+                    <div>
+                        <h4 class="font-semibold text-xs text-stone-300 uppercase tracking-wider font-tech">Google Toegestaan</h4>
+                        <p class="text-sm text-stone-400 mt-1">Het gebruik van Google tijdens deze toets is <strong class="text-emerald-400">toegestaan</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input setup form -->
+            <div class="max-w-md mx-auto bg-stone-950 p-6 rounded-xl border border-stone-800 shadow-inner">
+                <form id="start-form" onsubmit="startExam(event)" class="space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="candidate-name" class="block text-xs font-semibold text-stone-300 uppercase tracking-wider">
+                                Naam & Roepnummer <span class="text-orange-500">*</span>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-stone-500">
+                                <i class="fa-solid fa-id-badge"></i>
+                            </span>
+                            <input type="text" id="candidate-name" required placeholder="Bijv. Geert Wilders | 98"
+                                class="w-full bg-stone-900 border border-stone-800 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-stone-100 rounded-lg pl-10 pr-4 py-3 text-sm placeholder-stone-600 transition-all outline-none">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-stone-950 font-tech font-bold tracking-wider py-3.5 rounded-lg transition-all shadow-lg shadow-orange-500/10 flex items-center justify-center gap-2 text-base">
+                        Toets Starten
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quiz Play Screen -->
+        <div id="quiz-screen" class="hidden w-full bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
+            <!-- Header status inside the test -->
+            <div class="bg-stone-950 px-6 py-4 border-b border-stone-800 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span id="current-section-badge" class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider font-tech">
+                        Sectie
+                    </span>
+                    <h3 id="current-section-title" class="font-tech text-sm font-semibold tracking-wide text-stone-300">
+                        Sectie Naam
+                    </h3>
+                </div>
+                <div class="flex items-center gap-4 text-xs font-semibold">
+                    <div class="text-stone-400 font-tech">
+                        KANDIDAAT: <span id="display-candidate-name" class="text-stone-200"></span>
+                    </div>
+                    <div class="bg-stone-800 text-orange-400 border border-stone-700 px-2.5 py-1 rounded font-tech">
+                        VRAAG: <span id="display-question-progress">1/22</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Progress Bar -->
+            <div class="w-full bg-stone-800 h-1.5">
+                <div id="progress-bar-fill" class="bg-gradient-to-r from-orange-500 to-amber-500 h-1.5 transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Question and Options Form -->
+            <div class="p-6 sm:p-8">
+                <div class="mb-6">
+                    <h3 id="question-text" class="text-lg sm:text-xl font-medium text-stone-100 leading-relaxed">
+                        Laden van de vraag...
+                    </h3>
+                </div>
+
+                <div id="options-container" class="space-y-3.5 mb-8">
+                    <!-- Options injected via JavaScript -->
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex items-center justify-between pt-6 border-t border-stone-800">
+                    <button id="prev-question-btn" onclick="goToPrevQuestion()" class="flex items-center gap-2 bg-stone-800 hover:bg-stone-700 text-stone-300 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border border-stone-700 disabled:opacity-30 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        Vorige
+                    </button>
+                    
+                    <button id="next-question-btn" onclick="goToNextQuestion()" class="flex items-center gap-2 bg-stone-800 hover:bg-stone-700 text-stone-300 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border border-stone-700">
+                        Volgende
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    
+                    <button id="submit-exam-btn" onclick="confirmSubmitExam()" class="hidden flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-stone-950 px-6 py-2.5 rounded-lg text-sm font-tech font-bold tracking-wider transition-all shadow-lg shadow-emerald-500/10">
+                        Toets Inleveren
+                        <i class="fa-solid fa-square-check"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Questions Quick Jumper / Grid Footer -->
+            <div class="bg-stone-950 px-6 py-4 border-t border-stone-800">
+                <div class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2 font-tech">Snel overzicht</div>
+                <div id="questions-grid" class="flex flex-wrap gap-2">
+                    <!-- Small buttons injected via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden w-full bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl p-6 sm:p-10 relative overflow-hidden transition-all duration-300">
+            <!-- Background design details -->
+            <div id="results-bg-glow" class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20"></div>
+
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <div id="result-badge-container" class="inline-flex p-4 rounded-full mb-4">
+                    <i id="result-icon" class="text-4xl"></i>
+                </div>
+                <h2 id="result-title" class="text-3xl font-tech font-bold mb-2">Geslaagd / Gezakt</h2>
+                <p id="result-subtitle" class="text-stone-400 text-sm">Feedback over jouw resultaat.</p>
+            </div>
+
+            <!-- Score display grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-stone-950 p-4 rounded-xl border border-stone-800 text-center">
+                    <span class="block text-xs font-semibold text-stone-500 uppercase tracking-wider font-tech">Jouw Score</span>
+                    <span id="result-score-text" class="block text-3xl font-tech font-bold text-orange-400 mt-1">18 / 22</span>
+                    <span id="result-score-pct" class="text-[11px] text-stone-500 block mt-0.5">(81%)</span>
+                </div>
+                <div class="bg-stone-950 p-4 rounded-xl border border-stone-800 text-center">
+                    <span class="block text-xs font-semibold text-stone-500 uppercase tracking-wider font-tech">Resultaat</span>
+                    <span id="result-status-text" class="block text-3xl font-tech font-bold mt-1">GESLAAGD</span>
+                    <span id="result-status-desc" class="text-[11px] text-stone-500 block mt-0.5">Min. 15 vereist</span>
+                </div>
+                <div class="bg-stone-950 p-4 rounded-xl border border-stone-800 text-center">
+                    <span class="block text-xs font-semibold text-stone-500 uppercase tracking-wider font-tech">Kandidaat</span>
+                    <span id="result-candidate-text" class="block text-lg font-semibold text-stone-200 mt-2 truncate">Naam</span>
+                    <span class="text-[11px] text-stone-500 block mt-0.5">Roepnummer</span>
+                </div>
+            </div>
+
+            <!-- Certificate / Print Card -->
+            <div id="certificate-card" class="hidden bg-gradient-to-b from-stone-950 to-stone-900 border border-orange-500/30 p-6 sm:p-8 rounded-xl shadow-xl relative overflow-hidden mb-8">
+                <div class="absolute -right-16 -bottom-16 w-48 h-48 border-8 border-orange-500/5 rounded-full pointer-events-none"></div>
+                <div class="absolute -left-16 -top-16 w-48 h-48 border-8 border-orange-500/5 rounded-full pointer-events-none"></div>
+                
+                <div class="border-2 border-dashed border-orange-500/20 p-4 sm:p-6 rounded-lg text-center">
+                    <div class="text-orange-400 text-3xl mb-2"><i class="fa-solid fa-award"></i></div>
+                    <h3 class="font-tech text-xl font-bold uppercase tracking-widest text-stone-200">OMS Basiskennis Certificaat</h3>
+                    <p class="text-xs text-stone-500 font-tech tracking-wider uppercase mt-1">OMS Training Academy</p>
+                    
+                    <div class="my-6">
+                        <p class="text-sm text-stone-400">Dit bewijst dat de aspirant-monteur</p>
+                        <p id="cert-candidate-name" class="text-2xl font-tech font-semibold text-orange-400 mt-1 uppercase tracking-wide">Jan de Vries</p>
+                        <p class="text-sm text-stone-400 mt-1">met succes de theoretische OMS Basiskennis Toets heeft afgerond.</p>
+                    </div>
+
+                    <div class="flex justify-between items-end text-left text-xs text-stone-500 font-tech">
+                        <div>
+                            <p>AUTORISATIE: <span class="text-stone-400">HOOFDMONTEUR</span></p>
+                            <p>STATUS: <span class="text-emerald-400">GEVERIFIEERD</span></p>
+                        </div>
+                        <div class="text-right">
+                            <p>DATUM: <span id="cert-date" class="text-stone-400">11-06-2026</span></p>
+                            <p>ID: <span class="text-stone-400">OMS-9843</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakdown Detail Review Section -->
+            <div class="border-t border-stone-800 pt-6">
+                <h3 class="font-tech text-lg font-bold mb-4 flex items-center gap-2 text-stone-300">
+                    <i class="fa-solid fa-circle-question text-orange-500"></i>
+                    Vragen Nakijken
+                </h3>
+                
+                <div id="results-breakdown-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                    <!-- Breakdown Cards generated in JS -->
+                </div>
+            </div>
+
+            <!-- Action buttons inside the result screen -->
+            <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-stone-800">
+                <button onclick="restartExam()" class="flex-grow bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold py-3 px-6 rounded-lg text-sm transition-all border border-stone-800 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Toets Opnieuw Proberen
+                </button>
+                <button onclick="window.print()" class="bg-orange-500 hover:bg-orange-600 text-stone-950 font-tech font-bold tracking-wider py-3 px-6 rounded-lg text-sm transition-all shadow-lg shadow-orange-500/10 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i>
+                    Resultaten Printen
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Admin Settings / Editor Panel Modal Drawer -->
+    <div id="admin-panel" class="hidden fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-stone-950/80 backdrop-blur-sm transition-opacity" onclick="toggleAdminPanel()"></div>
+
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-2xl bg-stone-900 border-l border-stone-800 flex flex-col shadow-2xl">
+                <!-- Admin Header -->
+                <div class="px-6 py-5 bg-stone-950 border-b border-stone-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-user-shield text-orange-500 text-lg"></i>
+                        <h2 class="text-lg font-tech font-bold uppercase tracking-wider text-stone-200">
+                            OMS Beheerder Toetsenmaker
+                        </h2>
+                    </div>
+                    <button onclick="toggleAdminPanel()" class="text-stone-400 hover:text-stone-100 transition-colors">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Admin Body / Scroll Container -->
+                <div id="admin-panel-body" class="flex-grow overflow-y-auto p-6 space-y-6">
+                     <!-- Dynamic Content: Login screen or Settings screen -->
+                </div>
+
+                <!-- Admin Footer Actions -->
+                <div id="admin-panel-footer" class="px-6 py-4 bg-stone-950 border-t border-stone-800 flex gap-3">
+                     <!-- Dynamic Footer Buttons -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-stone-800 bg-stone-950 py-4 px-6 text-center text-xs text-stone-500 font-tech">
+        <p>© 2026 OMS Basiskennis Academie. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <!-- Application Logic Script -->
+    <script>
+        // Core questions state setup (The default list of questions)
+        const DEFAULT_QUESTIONS = [
+            {
+                id: 1,
+                section: "Roleplay (RP) & Server Regels",
+                question: "1. Wat is Metagaming?",
+                options: ["A) In-game praten", "B) Buiten game info gebruiken in RP", "C) Auto tunen", "D) Werken in garage"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 2,
+                section: "Voertuigkennis & Autotechniek",
+                question: "2. Waarvoor dient koelvloeistof?",
+                options: ["A) Motor koelen", "B) Remmen versterken", "C) Brandstof vervangen", "D) Ruiten reinigen"],
+                correctIndex: 0,
+                points: 1
+            },
+            {
+                id: 3,
+                section: "Roleplay (RP) & Server Regels",
+                question: "3. Wat is FailRP?",
+                options: ["A) Realistisch spelen", "B) Onrealistisch gedrag in RP", "C) Auto repareren", "D) Geld verdienen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 4,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "4. Wat zeg je als een klant de garage binnenkomt?",
+                options: ["A) “Yo wat moet je?”", "B) “Goedendag, waarmee kan ik u helpen?”", "C) “Wacht daar”", "D) Niks zeggen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 5,
+                section: "Voertuigkennis & Autotechniek",
+                question: "5. Waarvoor dient een accu?",
+                options: ["A) Brandstof opslaan", "B) Elektriciteit leveren aan de auto", "C) Olie filteren", "D) Motor koelen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 6,
+                section: "Roleplay (RP) & Server Regels",
+                question: "6. Wat is Powergaming?",
+                options: ["A) Realistisch handelen", "B) Iemand dwingen zonder kans op reactie", "C) Auto wassen", "D) Sneller rijden"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 7,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "7. Je ziet een ongeluk. Wat doe je?",
+                options: ["A) Negeren", "B) Hulp aanbieden of hulpdiensten bellen", "C) Auto’s stelen", "D) Weglopen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 8,
+                section: "Voertuigkennis & Autotechniek",
+                question: "8. Waarvoor dient motorolie?",
+                options: ["A) Koelt de banden", "B) Smeert en beschermt de motor", "C) Maakt de auto sneller", "D) Laadt de accu op"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 9,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "9. Klant vraagt prijs. Wat doe je?",
+                options: ["A) Willekeurige prijs zeggen", "B) Duidelijke uitleg geven", "C) Geen antwoord geven", "D) Overdrijven"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 10,
+                section: "Roleplay (RP) & Server Regels",
+                question: "10. Wat doe je als een regel niet zeker weet?",
+                options: ["A) Zelf verzinnen", "B) Staff vragen of regels checken", "C) Doen alsof", "D) Negeren"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 11,
+                section: "Roleplay (RP) & Server Regels",
+                question: "11. Wat is Metagaming? (Controle-vraag)",
+                options: ["A) In-game praten", "B) Buiten game info gebruiken in RP", "C) Auto tunen", "D) Werken in garage"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 12,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "12. Wat doe je als je een auto pech ziet op de weg?",
+                options: ["A) Doorrijden", "B) Stoppen en helpen of checken wat er is", "C) Lachen en weggaan", "D) De auto meenemen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 13,
+                section: "Voertuigkennis & Autotechniek",
+                question: "13. Waarvoor dient een luchtfilter?",
+                options: ["A) Olie filteren", "B) Schone lucht naar de motor brengen", "C) Remvloeistof maken", "D) Brandstof opslaan"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 14,
+                section: "Roleplay (RP) & Server Regels",
+                question: "14. Wat is FailRP? (Controle-vraag)",
+                options: ["A) Realistisch spelen", "B) Onrealistisch gedrag in RP", "C) Auto repareren", "D) Geld verdienen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 15,
+                section: "Roleplay (RP) & Server Regels",
+                question: "15. Wat doe je als collega fout RP doet?",
+                options: ["A) Melden of feedback geven buiten RP", "B) Meedoen", "C) Negeren", "D) Uitschelden"],
+                correctIndex: 0,
+                points: 1
+            },
+            {
+                id: 16,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "16. Wat doe je als klant binnenkomt met kapotte auto?",
+                options: ["A) Eerst kijken wat er mis is met het voertuig", "B) Meteen factureren", "C) Negeren", "D) Wegsturen"],
+                correctIndex: 0,
+                points: 1
+            },
+            {
+                id: 17,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "17. Wat is klantvriendelijkheid belangrijk?",
+                options: ["A) Voor betere RP en realisme", "B) Niet belangrijk", "C) Alleen voor geld", "D) Alleen voor staff"],
+                correctIndex: 0,
+                points: 1
+            },
+            {
+                id: 18,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "18. Wat doe je als een klant boos is?",
+                options: ["A) Terug schelden", "B) Professioneel blijven en rustig uitleggen", "C) Weglopen", "D) Klant negeren"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 19,
+                section: "Voertuigkennis & Autotechniek",
+                question: "19. Waarvoor dienen remblokken voor?",
+                options: ["A) Sneller rijden", "B) Auto laten remmen", "C) Motor starten", "D) Band oppompen"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 20,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "20. Wat doe je bij een klant die haast heeft maar jij bent bezig?",
+                options: ["A) Ik help u zo snel mogelijk", "B) Ga weg", "C) Geen antwoord", "D) Wachten"],
+                correctIndex: 0,
+                points: 1
+            },
+            {
+                id: 21,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "21. Wat doe je als een tweede klant binnenkomt terwijl je bezig bent?",
+                options: ["A) Nieuwe klant negeren", "B) Nieuwe klant begroeten en laten wachten", "C) Beide negeren", "D) Stoppen met werk"],
+                correctIndex: 1,
+                points: 1
+            },
+            {
+                id: 22,
+                section: "Klantvriendelijkheid & Garage RP",
+                question: "22. Waarom blijf je rustig als monteur?",
+                options: ["A) Voor realistische RP en goede klantbehandeling", "B) Voor geld", "C) Niet nodig", "D) Voor snelheid"],
+                correctIndex: 0,
+                points: 1
+            }
+        ];
+
+        // Runtime variables
+        let questions = JSON.parse(localStorage.getItem('oms_quiz_questions')) || DEFAULT_QUESTIONS;
+        let passingScore = parseInt(localStorage.getItem('oms_quiz_passing_score')) || 15;
+        let isAdminLoggedIn = false;
+        let loggedInAdminUser = ""; // "Donny" or "Mil"
+        let activeAdminTab = "results"; // "results" or "settings"
+        
+        let candidateName = "";
+        let currentQuestionIdx = 0;
+        let answers = {}; // Keeps track of question ID -> selected choice index
+
+        // Setup custom modal function since alert/confirm are deprecated
+        function showCustomToast(message, isSuccess = true) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 right-5 z-50 p-4 rounded-xl shadow-2xl border transition-all transform translate-y-0 opacity-100 flex items-center gap-3 ${
+                isSuccess 
+                    ? 'bg-emerald-950/90 border-emerald-500/30 text-emerald-400' 
+                    : 'bg-red-950/90 border-red-500/30 text-red-400'
+            }`;
+            toast.innerHTML = `
+                <i class="fa-solid ${isSuccess ? 'fa-circle-check' : 'fa-triangle-exclamation'} text-lg"></i>
+                <span class="text-sm font-medium font-tech">${message}</span>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Start Exam Flow
+        function startExam(e) {
+            e.preventDefault();
+            candidateName = document.getElementById('candidate-name').value.trim();
+            if(!candidateName) return;
+
+            document.getElementById('display-candidate-name').innerText = candidateName;
+            
+            // Switch screen
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+
+            // Set up test parameters
+            currentQuestionIdx = 0;
+            answers = {};
+            loadQuestion(0);
+            renderProgressGrid();
+        }
+
+        // Load current indexed question
+        function loadQuestion(idx) {
+            const q = questions[idx];
+            
+            // Update Headers
+            document.getElementById('current-section-title').innerText = q.section;
+            document.getElementById('display-question-progress').innerText = `${idx + 1}/${questions.length}`;
+            
+            // Set Progress Bar width
+            const pct = ((idx + 1) / questions.length) * 100;
+            document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+
+            // Question text
+            document.getElementById('question-text').innerText = q.question;
+
+            // Render option items
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, optIdx) => {
+                const isSelected = answers[q.id] === optIdx;
+                
+                const btn = document.createElement('div');
+                btn.className = `flex items-center gap-3 border p-4 rounded-xl cursor-pointer transition-all ${
+                    isSelected 
+                        ? 'border-orange-500 bg-orange-500/5 text-stone-100 shadow-lg shadow-orange-500/5' 
+                        : 'border-stone-800 bg-stone-950/40 hover:border-stone-700 text-stone-300'
+                }`;
+                btn.setAttribute('onclick', `selectOption(${q.id}, ${optIdx})`);
+
+                const radio = document.createElement('div');
+                radio.className = `h-5 w-5 rounded-full border flex items-center justify-center transition-all ${
+                    isSelected ? 'border-orange-500 bg-orange-500' : 'border-stone-700 bg-stone-900'
+                }`;
+                radio.innerHTML = isSelected ? '<div class="h-2 w-2 rounded-full bg-stone-950"></div>' : '';
+
+                const text = document.createElement('span');
+                text.className = "text-sm sm:text-base font-medium";
+                text.innerText = opt;
+
+                btn.appendChild(radio);
+                btn.appendChild(text);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Handle navigation buttons visibility
+            const prevBtn = document.getElementById('prev-question-btn');
+            const nextBtn = document.getElementById('next-question-btn');
+            const submitBtn = document.getElementById('submit-exam-btn');
+
+            prevBtn.disabled = idx === 0;
+
+            if (idx === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+
+            // Sync color grid indicator
+            updateActiveIndicator(idx);
+        }
+
+        // Handle option selection click
+        function selectOption(qId, optIdx) {
+            answers[qId] = optIdx;
+            loadQuestion(currentQuestionIdx);
+            renderProgressGrid();
+        }
+
+        // Navigation actions
+        function goToNextQuestion() {
+            if (currentQuestionIdx < questions.length - 1) {
+                currentQuestionIdx++;
+                loadQuestion(currentQuestionIdx);
+            }
+        }
+
+        // Go to previous question
+        function goToPrevQuestion() {
+            if (currentQuestionIdx > 0) {
+                currentQuestionIdx--;
+                loadQuestion(currentQuestionIdx);
+            }
+        }
+
+        // Jump to question
+        function jumpToQuestion(idx) {
+            currentQuestionIdx = idx;
+            loadQuestion(idx);
+        }
+
+        // Render footer quick navigation grid
+        function renderProgressGrid() {
+            const grid = document.getElementById('questions-grid');
+            grid.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const isAnswered = answers[q.id] !== undefined;
+                const isCurrent = currentQuestionIdx === idx;
+                
+                let btnStyle = "border-stone-800 bg-stone-900 text-stone-400 hover:border-stone-700";
+                if (isAnswered) {
+                    btnStyle = "bg-orange-500/10 border-orange-500/30 text-orange-400 hover:bg-orange-500/20";
+                }
+                if (isCurrent) {
+                    btnStyle = "bg-orange-500 border-orange-500 text-stone-950 shadow-md shadow-orange-500/20";
+                }
+
+                const btn = document.createElement('button');
+                btn.className = `h-9 w-9 text-xs font-tech font-bold rounded-lg border transition-all ${btnStyle}`;
+                btn.innerText = idx + 1;
+                btn.setAttribute('onclick', `jumpToQuestion(${idx})`);
+                grid.appendChild(btn);
+            });
+        }
+
+        // Progress grid indicator updater helper
+        function updateActiveIndicator(currentIdx) {
+            // Handled efficiently inside renderProgressGrid
+        }
+
+        // Submit and Calculate result
+        function confirmSubmitExam() {
+            const totalAnswered = Object.keys(answers).length;
+            if (totalAnswered < questions.length) {
+                const missing = questions.length - totalAnswered;
+                if (!window.confirm(`Let op: Je hebt nog ${missing} vragen niet ingevuld. Weet je zeker dat je wilt inleveren?`)) {
+                    return;
+                }
+            } else {
+                if (!window.confirm("Weet je zeker dat je de OMS basiskennis toets wilt inleveren voor beoordeling?")) {
+                    return;
+                }
+            }
+            processResults();
+        }
+
+        function processResults() {
+            let score = 0;
+            
+            questions.forEach(q => {
+                if (answers[q.id] === q.correctIndex) {
+                    score++;
+                }
+            });
+
+            const isPassed = score >= passingScore;
+            const pct = Math.round((score / questions.length) * 100);
+
+            // Create timestamped result record to save
+            const timestamp = new Date();
+            const examResult = {
+                id: timestamp.getTime(),
+                candidate: candidateName,
+                date: timestamp.toLocaleDateString('nl-NL') + " " + timestamp.toLocaleTimeString('nl-NL', {hour: '2-digit', minute:'2-digit'}),
+                score: score,
+                total: questions.length,
+                percentage: pct,
+                passed: isPassed,
+                answers: JSON.parse(JSON.stringify(answers))
+            };
+
+            // Save results to local storage list
+            const currentResults = JSON.parse(localStorage.getItem('oms_test_results')) || [];
+            currentResults.push(examResult);
+            localStorage.setItem('oms_test_results', JSON.stringify(currentResults));
+
+            // Hide play screen, show score screen
+            document.getElementById('quiz-screen').classList.add('hidden');
+            const resScreen = document.getElementById('results-screen');
+            resScreen.classList.remove('hidden');
+
+            // Render details
+            document.getElementById('result-score-text').innerText = `${score} / ${questions.length}`;
+            document.getElementById('result-score-pct').innerText = `(${pct}%)`;
+            document.getElementById('result-candidate-text').innerText = candidateName;
+
+            const badgeContainer = document.getElementById('result-badge-container');
+            const icon = document.getElementById('result-icon');
+            const title = document.getElementById('result-title');
+            const statusText = document.getElementById('result-status-text');
+            const bgGlow = document.getElementById('results-bg-glow');
+            const certCard = document.getElementById('certificate-card');
+
+            if (isPassed) {
+                badgeContainer.className = "inline-flex p-4 rounded-full mb-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
+                icon.className = "fa-solid fa-circle-check text-4xl";
+                title.innerText = "Gefeliciteerd! Je bent geslaagd.";
+                title.className = "text-3xl font-tech font-bold mb-2 text-emerald-400";
+                
+                statusText.innerText = "GESLAAGD";
+                statusText.className = "block text-3xl font-tech font-bold mt-1 text-emerald-400";
+                
+                bgGlow.className = "absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20 bg-emerald-500";
+                
+                // Show Certificate
+                certCard.classList.remove('hidden');
+                document.getElementById('cert-candidate-name').innerText = candidateName;
+                document.getElementById('cert-date').innerText = new Date().toLocaleDateString('nl-NL');
+            } else {
+                badgeContainer.className = "inline-flex p-4 rounded-full mb-4 bg-red-500/10 border border-red-500/20 text-red-400";
+                icon.className = "fa-solid fa-circle-xmark text-4xl";
+                title.innerText = "Helaas, je bent gezakt.";
+                title.className = "text-3xl font-tech font-bold mb-2 text-red-400";
+                
+                statusText.innerText = "GEZAKT";
+                statusText.className = "block text-3xl font-tech font-bold mt-1 text-red-400";
+                
+                bgGlow.className = "absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20 bg-red-500";
+                
+                // Hide Certificate
+                certCard.classList.add('hidden');
+            }
+
+            // Render breakdown cards
+            renderResultsBreakdown();
+        }
+
+        // Render questions list with answers indicators
+        function renderResultsBreakdown() {
+            const container = document.getElementById('results-breakdown-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const userChoiceIdx = answers[q.id];
+                const isCorrect = userChoiceIdx === q.correctIndex;
+                
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border ${
+                    isCorrect 
+                        ? 'bg-emerald-500/5 border-emerald-500/20' 
+                        : 'bg-red-500/5 border-red-500/20'
+                }`;
+
+                const flexDiv = document.createElement('div');
+                flexDiv.className = "flex items-start justify-between gap-4";
+
+                const contentDiv = document.createElement('div');
+                
+                const sectionBadge = document.createElement('span');
+                sectionBadge.className = "text-[10px] font-bold text-stone-500 uppercase tracking-widest font-tech";
+                sectionBadge.innerText = q.section;
+
+                const qTitle = document.createElement('h4');
+                qTitle.className = "font-medium text-stone-200 text-sm sm:text-base mt-1";
+                qTitle.innerText = q.question;
+
+                contentDiv.appendChild(sectionBadge);
+                contentDiv.appendChild(qTitle);
+
+                // Option outputs indicators
+                const choicesDiv = document.createElement('div');
+                choicesDiv.className = "mt-3 space-y-1.5 text-xs sm:text-sm";
+                
+                q.options.forEach((opt, oIdx) => {
+                    const optionLine = document.createElement('p');
+                    
+                    if (oIdx === q.correctIndex) {
+                        optionLine.className = "text-emerald-400 font-semibold flex items-center gap-1.5";
+                        optionLine.innerHTML = `<i class="fa-solid fa-check"></i> ${opt} (Correct Antwoord)`;
+                    } else if (oIdx === userChoiceIdx) {
+                        optionLine.className = "text-red-400 font-semibold flex items-center gap-1.5";
+                        optionLine.innerHTML = `<i class="fa-solid fa-xmark"></i> ${opt} (Jouw Antwoord)`;
+                    } else {
+                        optionLine.className = "text-stone-400";
+                        optionLine.innerText = opt;
+                    }
+                    choicesDiv.appendChild(optionLine);
+                });
+
+                contentDiv.appendChild(choicesDiv);
+
+                const badge = document.createElement('span');
+                if (isCorrect) {
+                    badge.className = "bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-md font-bold font-tech border border-emerald-500/20";
+                    badge.innerText = "+1 PT";
+                } else {
+                    badge.className = "bg-red-500/10 text-red-400 text-xs px-2.5 py-1 rounded-md font-bold font-tech border border-red-500/20";
+                    badge.innerText = "+0 PT";
+                }
+
+                flexDiv.appendChild(contentDiv);
+                flexDiv.appendChild(badge);
+                card.appendChild(flexDiv);
+                container.appendChild(card);
+            });
+        }
+
+        // Restart exam cleanly
+        function restartExam() {
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+            document.getElementById('candidate-name').value = '';
+        }
+
+        // Admin Sidebar Controls
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) {
+                renderAdminPanel();
+            }
+        }
+
+        // Validate credentials for exactly two accounts: Donny & Mil
+        function attemptAdminLogin() {
+            const usernameInput = document.getElementById('admin-login-user').value.trim();
+            const passwordInput = document.getElementById('admin-login-pass').value;
+            
+            const validAdmins = [
+                { username: "Donny", password: "Donny15-01-2026" },
+                { username: "Mil", password: "Mil14-02-2026" }
+            ];
+
+            const foundAdmin = validAdmins.find(admin => 
+                admin.username.toLowerCase() === usernameInput.toLowerCase() && 
+                admin.password === passwordInput
+            );
+
+            if (foundAdmin) {
+                isAdminLoggedIn = true;
+                loggedInAdminUser = foundAdmin.username;
+                activeAdminTab = "results"; // Default tab
+                showCustomToast(`Welkom terug, ${foundAdmin.username}!`, true);
+                renderAdminPanel();
+            } else {
+                const errorMsg = document.getElementById('login-error-msg');
+                if (errorMsg) errorMsg.classList.remove('hidden');
+                showCustomToast("Onjuiste gebruikersnaam of wachtwoord!", false);
+            }
+        }
+
+        // Log out admin
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            loggedInAdminUser = "";
+            showCustomToast("Succesvol uitgelogd.", true);
+            renderAdminPanel();
+        }
+
+        function setAdminTab(tabName) {
+            activeAdminTab = tabName;
+            renderAdminPanel();
+        }
+
+        // Render dynamic admin interface based on login status and active tab
+        function renderAdminPanel() {
+            const body = document.getElementById('admin-panel-body');
+            const footer = document.getElementById('admin-panel-footer');
+
+            if (!isAdminLoggedIn) {
+                // Render elegant username and password login interface
+                body.innerHTML = `
+                    <div class="max-w-md mx-auto my-6 p-6 bg-stone-950 rounded-xl border border-stone-800 shadow-xl space-y-4">
+                        <div class="text-center space-y-2">
+                            <div class="inline-flex p-3 bg-orange-500/10 text-orange-400 rounded-full">
+                                <i class="fa-solid fa-lock text-xl"></i>
+                            </div>
+                            <h3 class="font-tech text-base font-bold text-stone-200 uppercase tracking-wider">Beheerder Inloggen</h3>
+                            <p class="text-xs text-stone-500">Toegang is uitsluitend voor Donny en Mil.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">Gebruikersnaam</label>
+                                <input type="text" id="admin-login-user" placeholder="Vul je naam in"
+                                    class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-sm rounded-lg px-3 py-2.5 outline-none focus:border-orange-500 placeholder-stone-700">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">Wachtwoord</label>
+                                <input type="password" id="admin-login-pass" placeholder="••••••••"
+                                    class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-sm rounded-lg px-3 py-2.5 outline-none focus:border-orange-500 placeholder-stone-700"
+                                    onkeydown="if(event.key === 'Enter') attemptAdminLogin()">
+                            </div>
+                            <div id="login-error-msg" class="hidden text-xs text-red-400 font-semibold flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-exclamation"></i> Ongeldige inloggegevens. Probeer het opnieuw.
+                            </div>
+                        </div>
+                    </div>
+                `;
+                footer.innerHTML = `
+                    <button onclick="toggleAdminPanel()" class="w-1/2 bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-3 rounded-lg text-xs transition-colors">
+                        Annuleren
+                    </button>
+                    <button onclick="attemptAdminLogin()" class="w-1/2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-stone-950 font-tech font-bold tracking-wider py-3 rounded-lg text-xs transition-all shadow-lg shadow-orange-500/10">
+                        Inloggen
+                    </button>
+                `;
+            } else {
+                // Admin navigation headers
+                const isDonny = loggedInAdminUser.toLowerCase() === "donny";
+
+                let tabHeaders = `
+                    <div class="flex border-b border-stone-800 mb-6 bg-stone-950/40 p-1.5 rounded-lg">
+                        <button onclick="setAdminTab('results')" class="flex-1 py-2 text-xs font-tech font-semibold tracking-wider rounded-md uppercase transition-all flex items-center justify-center gap-2 ${
+                            activeAdminTab === 'results' 
+                                ? 'bg-orange-500 text-stone-950 shadow' 
+                                : 'text-stone-400 hover:text-stone-200'
+                        }">
+                            <i class="fa-solid fa-chart-line"></i> Resultaten Checken
+                        </button>
+                        <button onclick="setAdminTab('settings')" class="flex-1 py-2 text-xs font-tech font-semibold tracking-wider rounded-md uppercase transition-all flex items-center justify-center gap-2 ${
+                            activeAdminTab === 'settings' 
+                                ? 'bg-orange-500 text-stone-950 shadow' 
+                                : 'text-stone-400 hover:text-stone-200'
+                        }">
+                            <i class="fa-solid fa-sliders"></i> Toets Aanpassen ${!isDonny ? '🔒' : ''}
+                        </button>
+                    </div>
+                `;
+
+                if (activeAdminTab === "results") {
+                    // Render results overview (Accessible by both Donny & Mil)
+                    const results = JSON.parse(localStorage.getItem('oms_test_results')) || [];
+                    
+                    let resultsTableHTML = "";
+                    if (results.length === 0) {
+                        resultsTableHTML = `
+                            <div class="text-center py-10 border border-dashed border-stone-800 rounded-xl bg-stone-950/25">
+                                <i class="fa-solid fa-clipboard-list text-stone-600 text-3xl mb-3"></i>
+                                <p class="text-sm text-stone-400 font-semibold font-tech uppercase tracking-wide">Geen resultaten gevonden</p>
+                                <p class="text-xs text-stone-500 mt-1">Kandidaten die de toets afronden verschijnen hier.</p>
+                            </div>
+                        `;
+                    } else {
+                        resultsTableHTML = `
+                            <div class="overflow-x-auto border border-stone-800 rounded-xl bg-stone-950/25">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="bg-stone-950 text-stone-400 font-tech font-bold uppercase tracking-wider border-b border-stone-800">
+                                            <th class="p-3">Naam</th>
+                                            <th class="p-3">Datum</th>
+                                            <th class="p-3 text-center">Score</th>
+                                            <th class="p-3 text-center">Status</th>
+                                            <th class="p-3 text-right">Actie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-stone-850">
+                                        ${results.map(r => `
+                                            <tr class="hover:bg-stone-900/40">
+                                                <td class="p-3 font-semibold text-stone-200 truncate max-w-[120px]">${r.candidate}</td>
+                                                <td class="p-3 text-stone-400 font-tech">${r.date}</td>
+                                                <td class="p-3 text-center font-bold text-orange-400 font-tech">${r.score} / ${r.total}</td>
+                                                <td class="p-3 text-center">
+                                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-tech ${
+                                                        r.passed 
+                                                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
+                                                            : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                                                    }">
+                                                        ${r.passed ? 'SLAGEN' : 'ZAKKEN'}
+                                                    </span>
+                                                </td>
+                                                <td class="p-3 text-right flex items-center justify-end gap-1.5">
+                                                    <button onclick="inspectCandidateResult(${r.id})" class="bg-stone-800 hover:bg-stone-700 text-stone-300 px-2.5 py-1.5 rounded text-[10px] font-bold font-tech uppercase transition-colors flex items-center gap-1">
+                                                        <i class="fa-solid fa-eye"></i> Detail
+                                                    </button>
+                                                    ${isDonny ? `
+                                                        <button onclick="deleteCandidateResult(${r.id})" class="bg-red-500/10 hover:bg-red-500 hover:text-stone-950 text-red-400 px-2 py-1.5 rounded text-[10px] transition-all">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                    ` : ''}
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    }
+
+                    body.innerHTML = `
+                        ${tabHeaders}
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-tech text-sm font-bold text-stone-300 uppercase tracking-wider">Gemaakte Toetsen overzicht</h3>
+                                <span class="text-xs text-stone-500 font-tech">Ingelogd als: <strong class="text-orange-400">${loggedInAdminUser}</strong></span>
+                            </div>
+                            ${resultsTableHTML}
+                            <div id="inspector-output-container" class="hidden mt-6 bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-4">
+                                <!-- Detailed inspector details of candidate loaded here -->
+                            </div>
+                        </div>
+                    `;
+
+                    footer.innerHTML = `
+                        <button onclick="toggleAdminPanel()" class="w-full bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-3 rounded-lg text-xs transition-colors">
+                            Sluiten
+                        </button>
+                    `;
+
+                } else {
+                    // Settings tab: Only editable by Donny
+                    if (!isDonny) {
+                        body.innerHTML = `
+                            ${tabHeaders}
+                            <div class="text-center py-12 px-6 max-w-sm mx-auto space-y-4">
+                                <div class="inline-flex p-4 bg-red-500/10 text-red-400 border border-red-500/20 rounded-full text-2xl">
+                                    <i class="fa-solid fa-user-lock"></i>
+                                </div>
+                                <h3 class="font-tech text-base font-bold text-stone-200 uppercase tracking-wider">Toegang Geweigerd</h3>
+                                <p class="text-xs text-stone-400 leading-relaxed">
+                                    Beste <strong>${loggedInAdminUser}</strong>, je hebt leesrechten om de resultaten te bekijken. Alleen hoofdbeheerder <strong class="text-orange-400">Donny</strong> mag de toets vragen, antwoorden en slaagdrempels wijzigen.
+                                </p>
+                            </div>
+                        `;
+                        footer.innerHTML = `
+                            <button onclick="toggleAdminPanel()" class="w-full bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-3 rounded-lg text-xs transition-colors">
+                                Sluiten
+                            </button>
+                        `;
+                    } else {
+                        // Donny is logged in: full settings editor and saving is permitted
+                        body.innerHTML = `
+                            ${tabHeaders}
+                            <div class="bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-tech text-xs font-bold uppercase tracking-widest text-stone-400">Algemene Instellingen</h3>
+                                        <p class="text-[11px] text-orange-400 mt-1">Status: <strong>Hoofdbeheerder</strong> (Donny)</p>
+                                    </div>
+                                    <button onclick="adminLogout()" class="text-xs text-red-400 hover:text-red-300 font-semibold flex items-center gap-1.5 transition-colors">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Uitloggen
+                                    </button>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-2">Slaagdrempel (Punten)</label>
+                                        <input type="number" id="setting-passing-score" min="1" max="22" value="${passingScore}"
+                                            class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-sm rounded-lg px-3 py-2.5 outline-none focus:border-orange-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-2">Totaal Vragen</label>
+                                        <input type="number" id="setting-total-questions" readonly disabled value="${questions.length}"
+                                            class="w-full bg-stone-900/50 border border-stone-800 text-stone-500 text-sm rounded-lg px-3 py-2.5 cursor-not-allowed">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-tech text-sm font-bold text-stone-300 uppercase tracking-wider">Vragen & Antwoorden Wijzigen</h3>
+                                <span class="text-xs text-stone-500">Klik op een vraag om te bewerken</span>
+                            </div>
+
+                            <div id="admin-questions-accordion" class="space-y-3">
+                                <!-- Questions injected dynamically by script -->
+                            </div>
+                        `;
+                        footer.innerHTML = `
+                            <button onclick="resetToDefaults()" class="w-1/2 bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-3 rounded-lg text-xs transition-colors">
+                                Reset naar Standaard
+                            </button>
+                            <button onclick="saveAdminChanges()" class="w-1/2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-stone-950 font-tech font-bold tracking-wider py-3 rounded-lg text-xs transition-all shadow-lg shadow-orange-500/10">
+                                Wijzigingen Opslaan
+                            </button>
+                        `;
+                        initAdminForm();
+                    }
+                }
+            }
+        }
+
+        function inspectCandidateResult(resultId) {
+            const results = JSON.parse(localStorage.getItem('oms_test_results')) || [];
+            const result = results.find(r => r.id === resultId);
+            if (!result) return;
+
+            const container = document.getElementById('inspector-output-container');
+            container.classList.remove('hidden');
+            container.scrollIntoView({ behavior: 'smooth' });
+
+            container.innerHTML = `
+                <div class="flex items-center justify-between border-b border-stone-800 pb-3">
+                    <div>
+                        <h4 class="font-tech font-bold text-sm text-stone-200">Kandidaat Details: ${result.candidate}</h4>
+                        <p class="text-[10px] text-stone-500 font-tech mt-0.5">AFGELEGD OP: ${result.date}</p>
+                    </div>
+                    <button onclick="document.getElementById('inspector-output-container').classList.add('hidden')" class="text-stone-500 hover:text-stone-300 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="bg-stone-900 p-3 rounded-lg border border-stone-800 text-center">
+                        <span class="text-[10px] uppercase font-semibold text-stone-500 block font-tech">Eindscore</span>
+                        <span class="text-xl font-bold text-orange-400 font-tech">${result.score} / ${result.total}</span>
+                    </div>
+                    <div class="bg-stone-900 p-3 rounded-lg border border-stone-800 text-center">
+                        <span class="text-[10px] uppercase font-semibold text-stone-500 block font-tech">Beoordeling</span>
+                        <span class="text-xl font-bold font-tech ${result.passed ? 'text-emerald-400' : 'text-red-400'}">
+                            ${result.passed ? 'GESLAAGD' : 'GEZAKT'}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                    <h5 class="text-[10px] font-bold uppercase tracking-wider text-stone-400 font-tech">Antwoordenoverzicht</h5>
+                    ${questions.map((q, qIdx) => {
+                        const answerIdx = result.answers[q.id];
+                        const isCorrect = answerIdx === q.correctIndex;
+                        return `
+                            <div class="p-3 bg-stone-900/60 border ${isCorrect ? 'border-emerald-500/25' : 'border-red-500/25'} rounded-lg text-xs">
+                                <div class="flex justify-between items-start gap-2">
+                                    <span class="font-semibold text-stone-300">Vraag ${qIdx + 1}: ${q.question.replace(/^\d+\.\s*/, '')}</span>
+                                    <span class="font-tech font-bold text-[10px] px-1.5 py-0.5 rounded ${isCorrect ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}">
+                                        ${isCorrect ? 'GOED' : 'FOUT'}
+                                    </span>
+                                </div>
+                                <div class="mt-2 space-y-1 pl-2 border-l border-stone-800">
+                                    <p class="text-stone-400"><strong class="text-stone-500">Correct:</strong> ${q.options[q.correctIndex]}</p>
+                                    ${!isCorrect ? `
+                                        <p class="text-red-400"><strong class="text-stone-500">Ingevuld:</strong> ${answerIdx !== undefined ? q.options[answerIdx] : 'Geen antwoord'}</p>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // Delete candidate result (Donny only)
+        function deleteCandidateResult(resultId) {
+            if (!window.confirm("Weet je zeker dat je dit resultaat permanent wilt verwijderen?")) {
+                return;
+            }
+            let results = JSON.parse(localStorage.getItem('oms_test_results')) || [];
+            results = results.filter(r => r.id !== resultId);
+            localStorage.setItem('oms_test_results', JSON.stringify(results));
+            
+            document.getElementById('inspector-output-container').classList.add('hidden');
+            showCustomToast("Resultaat succesvol verwijderd.", true);
+            renderAdminPanel();
+        }
+
+        // Populate admin controls with question fields
+        function initAdminForm() {
+            const accordion = document.getElementById('admin-questions-accordion');
+            if(!accordion) return;
+            accordion.innerHTML = '';
+
+            questions.forEach((q, qIdx) => {
+                const item = document.createElement('div');
+                item.className = "bg-stone-950 border border-stone-800 rounded-lg overflow-hidden";
+                
+                // Toggle Button Header
+                const header = document.createElement('button');
+                header.className = "w-full px-4 py-3 text-left font-tech text-xs font-bold text-stone-300 hover:bg-stone-900 transition-colors flex justify-between items-center";
+                header.setAttribute('onclick', `toggleAccordionItem(${q.id})`);
+                header.innerHTML = `
+                    <span>Q${qIdx + 1}: ${q.question.replace(/^\d+\.\s*/, '')}</span>
+                    <i class="fa-solid fa-chevron-down text-stone-500"></i>
+                `;
+
+                // Body Container
+                const body = document.createElement('div');
+                body.id = `admin-q-body-${q.id}`;
+                body.className = "hidden p-4 border-t border-stone-900 space-y-3.5 bg-stone-950/50";
+                
+                // Fields inputs
+                body.innerHTML = `
+                    <div>
+                        <label class="block text-[10px] font-semibold text-stone-400 uppercase mb-1.5">Sectie Categorie</label>
+                        <select id="admin-q-section-${q.id}" class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-xs rounded px-2.5 py-2 outline-none">
+                            <option value="Roleplay (RP) & Server Regels" ${q.section === 'Roleplay (RP) & Server Regels' ? 'selected' : ''}>Roleplay (RP) & Server Regels</option>
+                            <option value="Voertuigkennis & Autotechniek" ${q.section === 'Voertuigkennis & Autotechniek' ? 'selected' : ''}>Voertuigkennis & Autotechniek</option>
+                            <option value="Klantvriendelijkheid & Garage RP" ${q.section === 'Klantvriendelijkheid & Garage RP' ? 'selected' : ''}>Klantvriendelijkheid & Garage RP</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-stone-400 uppercase mb-1.5">Vraagstelling</label>
+                        <input type="text" id="admin-q-text-${q.id}" value="${q.question}" class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-xs rounded px-2.5 py-2 outline-none">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-[10px] font-semibold text-stone-400 uppercase">Opties (Vink de correcte optie aan)</label>
+                        ${q.options.map((opt, oIdx) => `
+                            <div class="flex items-center gap-2">
+                                <input type="radio" name="admin-correct-radio-${q.id}" value="${oIdx}" ${oIdx === q.correctIndex ? 'checked' : ''} class="text-orange-500 focus:ring-orange-500 bg-stone-900 border-stone-800 h-3.5 w-3.5">
+                                <input type="text" id="admin-q-opt-${q.id}-${oIdx}" value="${opt}" class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-xs rounded px-2.5 py-1.5 outline-none">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                item.appendChild(header);
+                item.appendChild(body);
+                accordion.appendChild(item);
+            });
+        }
+
+        // Toggle admin panel edit rows
+        function toggleAccordionItem(qId) {
+            const body = document.getElementById(`admin-q-body-${qId}`);
+            body.classList.toggle('hidden');
+        }
+
+        // Save changes back into local storage & update current variables
+        function saveAdminChanges() {
+            const newPassingScore = parseInt(document.getElementById('setting-passing-score').value);
+            if (newPassingScore < 1 || newPassingScore > questions.length) {
+                showCustomToast(`Ongeldige slaaggrens. Voer een getal in tussen 1 en ${questions.length}.`, false);
+                return;
+            }
+
+            passingScore = newPassingScore;
+            localStorage.setItem('oms_quiz_passing_score', passingScore);
+
+            const updatedQuestions = [];
+
+            questions.forEach(q => {
+                const section = document.getElementById(`admin-q-section-${q.id}`).value;
+                const questionText = document.getElementById(`admin-q-text-${q.id}`).value;
+                
+                const options = [];
+                for (let oIdx = 0; oIdx < 4; oIdx++) {
+                    const optVal = document.getElementById(`admin-q-opt-${q.id}-${oIdx}`).value;
+                    options.push(optVal);
+                }
+
+                const radios = document.getElementsByName(`admin-correct-radio-${q.id}`);
+                let correctIdx = q.correctIndex;
+                for (let i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        correctIdx = parseInt(radios[i].value);
+                        break;
+                    }
+                }
+
+                updatedQuestions.push({
+                    id: q.id,
+                    section: section,
+                    question: questionText,
+                    options: options,
+                    correctIndex: correctIdx,
+                    points: 1
+                });
+            });
+
+            questions = updatedQuestions;
+            localStorage.setItem('oms_quiz_questions', JSON.stringify(questions));
+
+            showCustomToast("Toetsconfiguratie succesvol opgeslagen!", true);
+            toggleAdminPanel();
+        }
+
+        // Reset to original build setup
+        function resetToDefaults() {
+            if (window.confirm("Weet je zeker dat je alle vragen en de slaaggrens wilt resetten naar de standaardinstellingen?")) {
+                localStorage.removeItem('oms_quiz_questions');
+                localStorage.removeItem('oms_quiz_passing_score');
+                questions = DEFAULT_QUESTIONS;
+                passingScore = 15;
+                isAdminLoggedIn = false;
+                showCustomToast("Instellingen hersteld naar standaard!", true);
+                toggleAdminPanel();
+            }
+        }
+    </script>
+</body>
+</html>
